@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // Screens
-import 'package:flutter_audio_visualizer/screens/canvas.dart';
+import 'package:flutter_audio_visualizer/features/visualizer/screen/visualizer_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(),
-      home: const Canvas(),
+      home: const VisualizerScreen(),
     );
   }
 }
