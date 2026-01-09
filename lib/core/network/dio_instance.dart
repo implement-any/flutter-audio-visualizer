@@ -14,7 +14,7 @@ class DioInstance {
     _dio.interceptors.add(LogInterceptor());
   }
 
-  Future<Response<void>> get(String path) async {
+  Future<Response> get(String path) async {
     return await _dio.get(path);
   }
 }
