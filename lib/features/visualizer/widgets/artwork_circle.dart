@@ -5,8 +5,12 @@ class ArtworkCircle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      backgroundColor: Colors.black,
+    return SizedBox(
+      width: 200,
+      height: 200,
+      child: CircleAvatar(
+        backgroundColor: Colors.black,
+      ),
     );
   }
 }
