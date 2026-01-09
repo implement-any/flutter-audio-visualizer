@@ -6,6 +6,7 @@ class Player extends StatelessWidget {
   final void Function() onNext;
 
   final bool isPlaying;
+  final bool isCompleted;
 
   const Player({
     super.key,
@@ -13,6 +14,7 @@ class Player extends StatelessWidget {
     required this.onPrev,
     required this.onNext,
     required this.isPlaying,
+    required this.isCompleted,
   });
 
   @override
@@ -33,7 +35,7 @@ class Player extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(5),
                 child: Icon(
-                  isPlaying ? Icons.pause : Icons.play_arrow,
+                  isPlaying && !isCompleted ? Icons.pause : Icons.play_arrow,
                   color: Colors.white,
                 ),
               ),
