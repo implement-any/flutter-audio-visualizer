@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_audio_visualizer/core/network/dio_instance.dart';
 import 'package:flutter_audio_visualizer/core/network/dio_provider.dart';
+import 'package:flutter_audio_visualizer/features/visualizer/models/visualizer_model.dart';
 
 final visualizerProvider = Provider<VisualizerClient>((ref) {
   final dioInstance = ref.watch(dioProvider);
@@ -12,12 +13,9 @@ class VisualizerClient {
 
   VisualizerClient(this._dio);
 
-  Future<List<String>> getAudioList() async {
-    final response = await _dio.get("/audio/file/list");
-    return List<String>.from(response.data);
-  }
-
-  Future<void> getVisualizerInfo(String audioName) async {
-    final response = await _dio.get("/audio/visualizer/info/$audioName}");
+  Future<VisualizerMeta> getVisualizerMeta(String name) async {
+    final response = await _dio.get("/audio/visualizer/info/$name");
+    final dynamic data = response.data;
+    return VisualizerMeta.fromJson(data);
   }
 }
