@@ -5,9 +5,9 @@ class AudioController {
 
   Stream<PlayerState> get playingStream => _audioPlayer.playerStateStream;
 
-  Future<void> setUrl(String audioName) async {
+  Future<void> setAudio(String name) async {
     await _audioPlayer.setUrl(
-      "http://10.0.2.2:8080/audio/file/$audioName",
+      "http://10.0.2.2:8080/audio/file/$name",
       headers: {'Accept': 'audio/wav'},
     );
   }
