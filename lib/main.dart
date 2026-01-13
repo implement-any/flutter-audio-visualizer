@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_audio_visualizer/features/visualizer/screen/visualizer_screen.dart';
+import 'package:flutter_audio_visualizer/core/router/custom_router.dart';
 
 void main() {
   runApp(ProviderScope(child: const MyApp()));
@@ -11,10 +11,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Visualizer App',
+    return MaterialApp.router(
+      title: "Music visualizer",
       theme: ThemeData(),
-      home: const VisualizerScreen(),
+      routerConfig: CustomRouter.router,
       debugShowCheckedModeBanner: false,
     );
   }

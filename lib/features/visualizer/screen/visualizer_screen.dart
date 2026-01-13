@@ -8,7 +8,9 @@ import 'package:flutter_audio_visualizer/features/visualizer/widgets/music_info.
 import 'package:flutter_audio_visualizer/features/visualizer/widgets/player.dart';
 
 class VisualizerScreen extends ConsumerStatefulWidget {
-  const VisualizerScreen({super.key});
+  final String audioId;
+
+  const VisualizerScreen({super.key, required this.audioId});
 
   @override
   ConsumerState<VisualizerScreen> createState() => _VisualizerScreenState();
@@ -20,7 +22,7 @@ class _VisualizerScreenState extends ConsumerState<VisualizerScreen> {
   @override
   void initState() {
     super.initState();
-    _controller.setAudio("canto_ix_boss_1_battle_theme");
+    _controller.setAudio(widget.audioId);
   }
 
   @override
@@ -32,7 +34,7 @@ class _VisualizerScreenState extends ConsumerState<VisualizerScreen> {
   @override
   Widget build(BuildContext context) {
     final meta = ref.watch(
-      visualizerMetaProvider("canto_ix_boss_1_battle_theme"),
+      visualizerMetaProvider(widget.audioId),
     );
 
     return Scaffold(

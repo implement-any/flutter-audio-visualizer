@@ -13,8 +13,8 @@ class VisualizerClient {
 
   VisualizerClient(this._dio);
 
-  Future<VisualizerMeta> getVisualizerMeta(String name) async {
-    final response = await _dio.get("/audio/visualizer/info/$name");
+  Future<VisualizerMeta> getVisualizerMeta(String audioId) async {
+    final response = await _dio.get("/audio/visualizer/info/$audioId");
     final dynamic data = response.data;
     return VisualizerMeta.fromJson(data);
   }
