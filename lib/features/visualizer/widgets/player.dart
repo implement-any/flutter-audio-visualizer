@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_audio_visualizer/core/theme/colors.dart';
 
 class Player extends StatelessWidget {
   final void Function() onPlay;
-  final void Function() onPrev;
-  final void Function() onNext;
 
   final bool isPlaying;
   final bool isCompleted;
@@ -11,38 +10,26 @@ class Player extends StatelessWidget {
   const Player({
     super.key,
     required this.onPlay,
-    required this.onPrev,
-    required this.onNext,
     required this.isPlaying,
     required this.isCompleted,
   });
 
   @override
   Widget build(BuildContext context) {
-    return IconTheme(
-      data: const IconThemeData(size: 30),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        spacing: 10,
-        children: [
-          GestureDetector(onTap: onPrev, child: Icon(Icons.skip_previous)),
-          Material(
-            color: Colors.black,
-            shape: CircleBorder(),
-            child: InkWell(
-              customBorder: const CircleBorder(),
-              onTap: onPlay,
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Icon(
-                  isPlaying && !isCompleted ? Icons.pause : Icons.play_arrow,
-                  color: Colors.white,
-                ),
-              ),
-            ),
+    return Material(
+      color: BaseColor.black,
+      shape: CircleBorder(),
+      child: InkWell(
+        customBorder: const CircleBorder(),
+        onTap: onPlay,
+        child: Padding(
+          padding: const EdgeInsets.all(5),
+          child: Icon(
+            size: 30,
+            isPlaying && !isCompleted ? Icons.pause : Icons.play_arrow,
+            color: BaseColor.white,
           ),
-          GestureDetector(onTap: onNext, child: Icon(Icons.skip_next)),
-        ],
+        ),
       ),
     );
   }

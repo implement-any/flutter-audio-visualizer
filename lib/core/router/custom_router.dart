@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:flutter_audio_visualizer/shared/models/music.dart';
 import 'package:flutter_audio_visualizer/features/home/screen/home_screen.dart';
 import 'package:flutter_audio_visualizer/features/visualizer/screen/visualizer_screen.dart';
 
@@ -18,7 +19,7 @@ class CustomRouter {
       GoRoute(
         path: Paths.visualizer,
         builder: (context, state) {
-          return VisualizerScreen(audioId: state.extra as String);
+          return VisualizerScreen(music: state.extra as Music);
         },
       ),
     ],
