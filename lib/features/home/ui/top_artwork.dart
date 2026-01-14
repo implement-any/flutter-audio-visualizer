@@ -14,9 +14,9 @@ class TopArtwork extends StatelessWidget {
       child: Stack(
         children: [
           Artwork(
-            blurHash: "L7973-RK0RV-S%tWVrT34m-E.9F%",
+            blurHash: r"L6BV;8OZ0N$K~Vs,M|Rn01w]WCI=",
             imageUrl:
-                "https://limbuscompany.wiki.gg/images/thumb/DanteStar.png/780px-DanteStar.png?e52927",
+            "https://i.ytimg.com/vi/WFUpe63YKW8/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDq9dMjsspN3FaJzsxerlboZ7kFXw",
           ),
           ArtworkShadow(
             colors: [
