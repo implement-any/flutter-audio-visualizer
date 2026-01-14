@@ -4,6 +4,9 @@ class AudioController {
   final AudioPlayer _audioPlayer = AudioPlayer();
 
   Stream<PlayerState> get playingStream => _audioPlayer.playerStateStream;
+  Stream<Duration> get positionStream => _audioPlayer.positionStream;
+  bool get playing => _audioPlayer.playing;
+  Duration get position => _audioPlayer.position;
 
   Future<void> setAudio(String audioId) async {
     await _audioPlayer.setUrl(

@@ -5,3 +5,7 @@ import 'package:flutter_audio_visualizer/features/visualizer/models/visualizer_m
 final visualizerMetaProvider = FutureProvider.family<VisualizerMeta, String>((ref, audioId) async {
   return await ref.read(visualizerProvider).getVisualizerMeta(audioId);
 });
+
+final framesProvider = FutureProvider.family<VisualizerFrames, String>((ref, audioId) async {
+  return await ref.read(visualizerProvider).getVisualizer(audioId);
+});

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_audio_visualizer/core/theme/colors.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_audio_visualizer/core/router/custom_router.dart';
 
@@ -13,7 +14,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: "Music visualizer",
-      theme: ThemeData(colorScheme: ColorScheme.dark()),
+      theme: ThemeData(
+        colorScheme: ColorScheme.dark(onPrimary: BaseColor.black),
+      ),
       routerConfig: CustomRouter.router,
       debugShowCheckedModeBanner: false,
     );

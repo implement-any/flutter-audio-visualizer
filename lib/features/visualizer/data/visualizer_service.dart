@@ -18,4 +18,10 @@ class VisualizerClient {
     final dynamic data = response.data;
     return VisualizerMeta.fromJson(data);
   }
+
+  Future<VisualizerFrames> getVisualizer(String audioId) async {
+    final response = await _dio.get("/audio/visualizer/$audioId");
+    final data = (response.data as Map).cast<String, dynamic>();
+    return VisualizerFrames.fromJson(data);
+  }
 }

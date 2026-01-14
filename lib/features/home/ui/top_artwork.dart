@@ -10,13 +10,13 @@ class TopArtwork extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 300,
+      height: 280,
       child: Stack(
         children: [
           Artwork(
-            blurHash: "L7973-RK0RV-S%tWVrT34m-E.9F%",
+            blurHash: r"L6BV;8OZ0N$K~Vs,M|Rn01w]WCI=",
             imageUrl:
-                "https://limbuscompany.wiki.gg/images/thumb/DanteStar.png/780px-DanteStar.png?e52927",
+                "https://i.ytimg.com/vi/WFUpe63YKW8/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDq9dMjsspN3FaJzsxerlboZ7kFXw",
           ),
           ArtworkShadow(
             colors: [
@@ -26,9 +26,9 @@ class TopArtwork extends StatelessWidget {
               BaseColor.black.withAlpha(50),
               Colors.transparent,
             ],
-            stops: const [0.05, 0.1, 0.2, 0.3, 0.4],
+            stops: const [0.05, 0.2, 0.3, 0.4, 0.5],
           ),
-          ArtworkTitle(title: "림버스 컴퍼니 테마 곡 목록"),
+          ArtworkTitle(title: "보스 테마곡 목록")
         ],
       ),
     );

@@ -10,10 +10,10 @@ class ArtworkTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
       left: 15,
-      bottom: 15,
+      bottom: 0,
       child: Text(
         title,
-        style: TextStyle(fontSize: 20, color: BaseColor.white),
+        style: TextStyle(fontSize: 25, color: BaseColor.white),
       ),
     );
   }

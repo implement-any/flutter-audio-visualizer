@@ -21,7 +21,9 @@ class Player extends StatelessWidget {
       shape: CircleBorder(),
       child: InkWell(
         customBorder: const CircleBorder(),
-        onTap: onPlay,
+        onTap: () {
+          onPlay();
+        },
         child: Padding(
           padding: const EdgeInsets.all(5),
           child: Icon(

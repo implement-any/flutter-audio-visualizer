@@ -16,11 +16,12 @@ class MusicList extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
       itemCount: musicList.length,
       itemBuilder: (context, index) => GestureDetector(
+        behavior: HitTestBehavior.translucent,
         onTap: () {
           context.push(Paths.visualizer, extra: musicList[index]);
         },
         child: Row(
-          spacing: 8,
+          spacing: 15,
           children: [
             CoverImage(
               size: 50,

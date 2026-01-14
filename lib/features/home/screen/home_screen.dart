@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_audio_visualizer/shared/widgets/center_text.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_audio_visualizer/core/theme/colors.dart';
+import 'package:flutter_audio_visualizer/shared/widgets/custom_divider.dart';
 import 'package:flutter_audio_visualizer/features/home/ui/music_list.dart';
 import 'package:flutter_audio_visualizer/features/home/ui/top_artwork.dart';
 import 'package:flutter_audio_visualizer/features/home/provider/music_provider.dart';
@@ -19,16 +21,14 @@ class HomeScreen extends ConsumerWidget {
         child: Column(
           children: [
             TopArtwork(),
-            asyncValue.when(
-              data: (musicList) {
-                return Expanded(child: MusicList(musicList: musicList));
-              },
-              error: (err, stack) {
-                return const Expanded(child: Text("Error!!"));
-              },
-              loading: () {
-                return const Expanded(child: CircularProgressIndicator());
-              },
+            Expanded(
+              child: asyncValue.when(
+                data: (musicList) => MusicList(musicList: musicList),
+                error: (err, stack) {
+                  return const CenterText(text: "음원 목록 불러오기를 실패하였습니다.");
+                },
+                loading: () => const CustomDivider(),
+              ),
             ),
           ],
         ),
