@@ -16,6 +16,7 @@ class MusicList extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
       itemCount: musicList.length,
       itemBuilder: (context, index) => GestureDetector(
+        behavior: HitTestBehavior.translucent,
         onTap: () {
           context.push(Paths.visualizer, extra: musicList[index]);
         },
