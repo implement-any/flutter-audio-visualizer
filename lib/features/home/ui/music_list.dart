@@ -21,7 +21,7 @@ class MusicList extends StatelessWidget {
           context.push(Paths.visualizer, extra: musicList[index]);
         },
         child: Row(
-          spacing: 8,
+          spacing: 15,
           children: [
             CoverImage(
               size: 50,

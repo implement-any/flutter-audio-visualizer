@@ -14,7 +14,7 @@ class MusicMeta extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title, style: TextStyle(color: BaseColor.white)),
-        Text(subTitle, style: TextStyle(color: BaseColor.white)),
+        Text(subTitle, style: TextStyle(color: BaseColor.white.withAlpha(150))),
       ],
     );
   }
