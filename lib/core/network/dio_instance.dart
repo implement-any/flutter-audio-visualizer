@@ -14,7 +14,11 @@ class DioInstance {
     _dio.interceptors.add(LogInterceptor());
   }
 
-  Future<Response> get(String path) async {
-    return await _dio.get(path);
+  Future<Response<T>> get<T>(
+    String path, {
+    Options? options,
+    CancelToken? cancelToken,
+  }) async {
+    return await _dio.get<T>(path, options: options, cancelToken: cancelToken);
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_audio_visualizer/core/theme/colors.dart';
+
 import 'package:flutter_audio_visualizer/features/home/widgets/artwork.dart';
 import 'package:flutter_audio_visualizer/features/home/widgets/artwork_shadow.dart';
 import 'package:flutter_audio_visualizer/features/home/widgets/artwork_title.dart';
@@ -15,8 +17,7 @@ class TopArtwork extends StatelessWidget {
         children: [
           Artwork(
             blurHash: r"L6BV;8OZ0N$K~Vs,M|Rn01w]WCI=",
-            imageUrl:
-            "https://i.ytimg.com/vi/WFUpe63YKW8/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDq9dMjsspN3FaJzsxerlboZ7kFXw",
+            imageUrl: "https://i.ytimg.com/vi/WFUpe63YKW8/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDq9dMjsspN3FaJzsxerlboZ7kFXw",
           ),
           ArtworkShadow(
             colors: [

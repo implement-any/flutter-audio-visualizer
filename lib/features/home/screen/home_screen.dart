@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:flutter_audio_visualizer/core/theme/colors.dart';
+
+import 'package:flutter_audio_visualizer/features/home/provider/music_provider.dart';
 import 'package:flutter_audio_visualizer/features/home/ui/music_list.dart';
 import 'package:flutter_audio_visualizer/features/home/ui/top_artwork.dart';
-import 'package:flutter_audio_visualizer/features/home/provider/music_provider.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});

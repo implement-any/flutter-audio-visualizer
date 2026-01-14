@@ -5,6 +5,8 @@ class AudioController {
 
   Stream<PlayerState> get playingStream => _audioPlayer.playerStateStream;
 
+  Stream<Duration> get positionStream => _audioPlayer.positionStream;
+
   Future<void> setAudio(String audioId) async {
     await _audioPlayer.setUrl(
       "http://10.0.2.2:8080/audio/file/$audioId",
@@ -13,7 +15,7 @@ class AudioController {
   }
 
   Future<void> toggle() async {
-    if(_audioPlayer.playing) {
+    if (_audioPlayer.playing) {
       await _audioPlayer.pause();
     } else {
       await _audioPlayer.play();

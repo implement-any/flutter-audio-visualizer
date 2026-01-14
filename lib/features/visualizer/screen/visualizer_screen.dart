@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_visualizer/features/visualizer/widgets/background_blur.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:flutter_audio_visualizer/core/theme/colors.dart';
-import 'package:flutter_audio_visualizer/shared/models/music.dart';
-import 'package:flutter_audio_visualizer/shared/widgets/cover_image.dart';
+
 import 'package:flutter_audio_visualizer/features/visualizer/controller/audio_controller.dart';
+import 'package:flutter_audio_visualizer/features/visualizer/provider/visualizer_provider.dart';
+import 'package:flutter_audio_visualizer/features/visualizer/ui/cover_with_visualizer.dart';
+import 'package:flutter_audio_visualizer/features/visualizer/widgets/background_blur.dart';
 import 'package:flutter_audio_visualizer/features/visualizer/widgets/music_info.dart';
 import 'package:flutter_audio_visualizer/features/visualizer/widgets/player.dart';
+
+import 'package:flutter_audio_visualizer/shared/models/music.dart';
 
 class VisualizerScreen extends ConsumerStatefulWidget {
   final Music music;
@@ -20,22 +23,28 @@ class VisualizerScreen extends ConsumerStatefulWidget {
 }
 
 class _VisualizerScreenState extends ConsumerState<VisualizerScreen> {
-  final AudioController _controller = AudioController();
+  final AudioController _audio = AudioController();
 
   @override
   void initState() {
     super.initState();
-    _controller.setAudio(widget.music.audioId);
+    _initAudioStream();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _audio.dispose();
     super.dispose();
+  }
+
+  void _initAudioStream() {
+    _audio.setAudio(widget.music.audioId);
   }
 
   @override
   Widget build(BuildContext context) {
+    final visualizerAsync = ref.watch(visualizerDataProvider(widget.music.audioId));
+
     return Scaffold(
       backgroundColor: BaseColor.black,
       body: SizedBox(
@@ -48,29 +57,30 @@ class _VisualizerScreenState extends ConsumerState<VisualizerScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 25,
               children: [
-                CoverImage(
-                  size: 200,
-                  blurHash: widget.music.blurHash,
-                  imageUrl: widget.music.cover,
-                  isCircle: true,
+                visualizerAsync.when(
+                  data: (visualizer) => CoverWithVisualizer(
+                    audio: _audio,
+                    visualizer: visualizer,
+                    music: widget.music,
+                  ),
+                  error: (err, stack) => const SizedBox.shrink(),
+                  loading: () => const SizedBox.shrink(),
                 ),
                 MusicInfo(
                   title: widget.music.title,
                   subTitle: widget.music.subTitle,
                 ),
                 StreamBuilder<PlayerState>(
-                  stream: _controller.playingStream,
+                  stream: _audio.playingStream,
                   builder: (context, snapshot) {
                     final state = snapshot.data;
                     final processing = state?.processingState;
-                    final isPlaying = state?.playing ?? false;
-                    final isCompleted = processing == ProcessingState.completed;
+                    final playing = state?.playing ?? false;
+                    final completed = processing == ProcessingState.completed;
                     return Player(
-                      onPlay: isCompleted
-                          ? _controller.resetToPlay
-                          : _controller.toggle,
-                      isPlaying: isPlaying,
-                      isCompleted: isCompleted,
+                      onPlay: completed ? _audio.resetToPlay : _audio.toggle,
+                      playing: playing,
+                      completed: completed,
                     );
                   },
                 ),
