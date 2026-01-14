@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_visualizer/shared/widgets/cover_image.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:flutter_audio_visualizer/core/router/custom_router.dart';
+
 import 'package:flutter_audio_visualizer/features/home/widgets/music_meta.dart';
+
 import 'package:flutter_audio_visualizer/shared/models/music.dart';
+import 'package:flutter_audio_visualizer/shared/widgets/cover_image.dart';
 
 class MusicList extends StatelessWidget {
   final List<Music> musicList;

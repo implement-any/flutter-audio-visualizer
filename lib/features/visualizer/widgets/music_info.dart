@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_audio_visualizer/core/theme/colors.dart';
 
 class MusicInfo extends StatelessWidget {

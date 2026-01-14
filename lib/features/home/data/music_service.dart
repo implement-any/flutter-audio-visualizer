@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:flutter_audio_visualizer/core/network/dio_instance.dart';
 import 'package:flutter_audio_visualizer/core/network/dio_provider.dart';
+
 import 'package:flutter_audio_visualizer/shared/models/music.dart';
 
 final musicServiceProvider = Provider((ref) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
+
 import 'package:flutter_audio_visualizer/core/theme/colors.dart';
 
 class BackgroundBlur extends StatelessWidget {
