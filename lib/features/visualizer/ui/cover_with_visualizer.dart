@@ -32,16 +32,19 @@ class CoverWithVisualizer extends ConsumerStatefulWidget {
 
 class _CoverWithVisualizerState extends ConsumerState<CoverWithVisualizer> with SingleTickerProviderStateMixin {
   late final Ticker _ticker;
-  final ValueNotifier<double> _frame = ValueNotifier<double>(0);
-  final ValueNotifier<double> _fade = ValueNotifier<double>(0);
+  final ValueNotifier<double> _frame = ValueNotifier<double>(0.0);
+  final ValueNotifier<double> _fade = ValueNotifier<double>(0.0);
+  final ValueNotifier<double> _rotation = ValueNotifier<double>(0.0);
 
   StreamSubscription<Duration>? _positionSub;
   StreamSubscription<PlayerState>? _stateSub;
 
   Duration _basePosition = Duration.zero;
+  double _rotationCount = 0.0;
   double _fadeTarget = 1.0;
   int _baseMicros = 0;
   bool _playing = false;
+  bool _completed = false;
 
   @override
   void initState() {
@@ -61,6 +64,7 @@ class _CoverWithVisualizerState extends ConsumerState<CoverWithVisualizer> with 
   void _initAudioListener() {
     widget.audio.playingStream.listen((state) {
       _playing = state.playing;
+      _completed = state.processingState == ProcessingState.completed;
       if(state.processingState == ProcessingState.completed) {
         _basePosition = Duration.zero;
         _baseMicros = DateTime.now().microsecondsSinceEpoch;
@@ -96,10 +100,18 @@ class _CoverWithVisualizerState extends ConsumerState<CoverWithVisualizer> with 
       }
     }
 
+    void rotating() {
+      if(_playing && !_completed) {
+        _rotationCount += 0.002;
+        _rotation.value = _rotationCount;
+      }
+    }
+
     _ticker = createTicker((_) {
       final visualizer = ref.read(visualizerDataProvider(widget.music.audioId)).value;
       linearFade();
       linearFrameIndex(visualizer);
+      rotating();
     })..start();
   }
 
@@ -108,6 +120,7 @@ class _CoverWithVisualizerState extends ConsumerState<CoverWithVisualizer> with 
     _ticker.dispose();
     _frame.dispose();
     _fade.dispose();
+    _rotation.dispose();
     _positionSub?.cancel();
     _stateSub?.cancel();
     super.dispose();
@@ -118,7 +131,7 @@ class _CoverWithVisualizerState extends ConsumerState<CoverWithVisualizer> with 
     final color = ref.watch(blurHashProvider(widget.music.blurHash));
 
     const coverSize = 200.0;
-    const maxLen = 20.0;
+    const maxLen = 30.0;
     const gap = 10.0;
     final size = coverSize + (maxLen + gap) * 2;
 
@@ -135,6 +148,7 @@ class _CoverWithVisualizerState extends ConsumerState<CoverWithVisualizer> with 
                 painter: CircleBarsPainter(
                   frameIndexListenable: _frame,
                   fadeListenable: _fade,
+                  rotatable: _rotation,
                   visualizer: widget.visualizer,
                   coverSize: coverSize,
                   gap: gap,
