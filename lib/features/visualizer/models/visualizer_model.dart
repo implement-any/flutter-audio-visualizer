@@ -42,7 +42,7 @@ class VisualizerData implements Reader {
     final f = frame.clamp(0.0, last.toDouble());
     final i0 = f.floor();
     final i1 = (i0 + 1) > last ? last : (i0 + 1);
-    final t = f - i0;
+    final t = (f - i0) * 0.5;
 
     final a = clampedBar(i0, barIndex);
     final b = clampedBar(i1, barIndex);

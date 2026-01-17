@@ -13,7 +13,7 @@ class BackgroundBlur extends StatelessWidget {
     return Positioned.fill(
       child: ColorFiltered(
         colorFilter: ColorFilter.mode(
-          BaseColor.black.withAlpha(150),
+          BaseColor.black.withAlpha(170),
           BlendMode.darken,
         ),
         child: BlurHash(
