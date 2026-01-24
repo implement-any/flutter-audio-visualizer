@@ -29,13 +29,13 @@ class CircleBarsPainter extends CustomPainter {
     required this.color,
     required this.frameIndexListenable,
     required this.fadeListenable,
-    required this.rotatable
+    required this.rotatable,
   }) : super(repaint: Listenable.merge([frameIndexListenable, fadeListenable, rotatable]));
 
   // 각 64개의 angle cos, sin 연산 캐싱 ( 1회만 )
   void _ensureDirs() {
     final count = visualizer.meta.barCount;
-    if(_dirs != null && _cachedBarCount == count) return;
+    if (_dirs != null && _cachedBarCount == count) return;
     _cachedBarCount = count;
     _dirs = List.generate(count, (i) {
       final angle = (i / count) * 2 * math.pi;
@@ -59,24 +59,37 @@ class CircleBarsPainter extends CustomPainter {
 
     final radius = coverSize / 2 + gap;
 
-    final paint = Paint()
+    // 밝기 보정 ( Blur Hash 색상 값이 배경보다 어두우면 묻히는 경우가 있음 )
+    final luminance = color.computeLuminance();
+    final brighten = luminance >= (0.25 -  0.8).abs() ? 0.0 : luminance > 0.1 ? 0.5 : 0.3;
+
+    final barPaint = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round
-      ..strokeWidth = 6;
+      ..strokeCap = StrokeCap.butt
+      ..strokeWidth = 10;
+
+    final circlePaint = Paint()
+      ..color = color.withAlpha(190)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 5;
+
+    canvas.drawCircle(center, radius, circlePaint);
 
     for (int i = 0; i < barCount; i++) {
       final bar = visualizer.lerpBar(frameIndexListenable.value, i) * fadeListenable.value;
 
-      final hueShift = ((i / barCount) * 20) - 30;
-      final hsl = HSLColor.fromColor(color);
-      final barColor = hsl.withHue((hsl.hue + hueShift) % 360).toColor();
-      paint.color = barColor.withAlpha(255);
+      final base = HSLColor.fromColor(color);
+      final hue = (base.hue + bar) % 360;
+      final barColor = base.withHue(hue).withLightness(brighten).toColor();
+
+      barPaint.color = barColor.withAlpha(240);
 
       final dir = dirs[i];
-      final p1 = center + dir * radius;
-      final p2 = center + dir * (radius + bar * maxLen);
+      final half = (bar * maxLen * 0.5) / 1.5;
+      final p1 = center + dir * (radius - half);
+      final p2 = center + dir * (radius + half);
 
-      canvas.drawLine(p1, p2, paint);
+      canvas.drawLine(p1, p2, barPaint);
     }
 
     canvas.restore();
