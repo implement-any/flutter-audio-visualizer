@@ -130,9 +130,9 @@ class _CoverWithVisualizerState extends ConsumerState<CoverWithVisualizer> with 
   Widget build(BuildContext context) {
     final color = ref.watch(blurHashProvider(widget.music.blurHash));
 
-    const coverSize = 200.0;
-    const maxLen = 30.0;
-    const gap = 10.0;
+    const coverSize = 250.0;
+    const maxLen = 40.0;
+    const gap = 22.5;
     final size = coverSize + (maxLen + gap) * 2;
 
     return SizedBox(
@@ -158,11 +158,27 @@ class _CoverWithVisualizerState extends ConsumerState<CoverWithVisualizer> with 
               ),
             ),
           ),
-          CoverImage(
-            size: coverSize,
-            blurHash: widget.music.blurHash,
-            imageUrl: widget.music.cover,
-            isCircle: true,
+          ShaderMask(
+            shaderCallback: (rect) {
+              return RadialGradient(
+                center: Alignment.center,
+                radius: 0.55,
+                colors: [
+                  Colors.black,
+                  Colors.black,
+                  Colors.transparent,
+                  Colors.transparent
+                ],
+                stops: [0.0, 0.8, 0.9, 1.0],
+              ).createShader(rect);
+            },
+            blendMode: BlendMode.dstIn,
+            child: CoverImage(
+              size: coverSize,
+              blurHash: widget.music.blurHash,
+              imageUrl: widget.music.cover,
+              isCircle: true,
+            ),
           ),
         ],
       ),
