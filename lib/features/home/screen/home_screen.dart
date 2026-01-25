@@ -1,39 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:flutter_audio_visualizer/core/theme/colors.dart';
-
+import 'package:flutter_audio_visualizer/core/shell/appbar_inset.dart';
+import 'package:flutter_audio_visualizer/core/shell/shell_config.dart';
 import 'package:flutter_audio_visualizer/features/home/provider/music_provider.dart';
 import 'package:flutter_audio_visualizer/features/home/ui/music_list.dart';
-import 'package:flutter_audio_visualizer/features/home/ui/top_artwork.dart';
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final asyncValue = ref.watch(musicProvider);
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
 
-    return Scaffold(
-      backgroundColor: BaseColor.black,
-      body: SizedBox(
-        width: double.infinity,
-        child: Column(
-          children: [
-            TopArtwork(),
-            asyncValue.when(
-              data: (musicList) {
-                return Expanded(child: MusicList(musicList: musicList));
-              },
-              error: (err, stack) {
-                return const Expanded(child: Text("Error!!"));
-              },
-              loading: () {
-                return const Expanded(child: CircularProgressIndicator());
-              },
-            ),
-          ],
-        ),
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    setAppBar();
+  }
+
+  void setAppBar() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      const config = AppBarConfig(title: "Visualizer");
+      ref.read(appBarConfigProvider.notifier).state = config;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final musicList = ref.watch(musicProvider);
+
+    return AppbarInset(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 15.0),
+            child: const Text("림버스 컴퍼니 보스 테마 곡"),
+          ),
+          SizedBox(
+            width: double.infinity,
+            height: 250,
+            child: MusicList(musicList: musicList),
+          ),
+        ],
       ),
     );
   }

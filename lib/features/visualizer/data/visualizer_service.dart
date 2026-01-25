@@ -18,13 +18,19 @@ class VisualizerClient {
 
   VisualizerClient(this._dio);
 
-  Future<VisualizerMeta> getVisualizerMeta(String audioId, {CancelToken? cancelToken}) async {
+  Future<VisualizerMeta> getVisualizerMeta(
+    String audioId, {
+    CancelToken? cancelToken,
+  }) async {
     final response = await _dio.get("/audio/visualizer/$audioId/meta");
     final dynamic data = response.data;
     return VisualizerMeta.fromJson(data);
   }
 
-  Future<Uint8List> getVisualizerBin(String audioId, {CancelToken? cancelToken}) async {
+  Future<Uint8List> getVisualizerBin(
+    String audioId, {
+    CancelToken? cancelToken,
+  }) async {
     final response = await _dio.get<List<int>>(
       "/audio/visualizer/$audioId/bin",
       options: Options(responseType: ResponseType.bytes),
@@ -33,7 +39,10 @@ class VisualizerClient {
     return Uint8List.fromList(response.data!);
   }
 
-  Future<VisualizerData> getVisualizer(String audioId, {CancelToken? cancelToken}) async {
+  Future<VisualizerData> getVisualizer(
+    String audioId, {
+    CancelToken? cancelToken,
+  }) async {
     final meta = await getVisualizerMeta(audioId, cancelToken: cancelToken);
     final framesBin = await getVisualizerBin(audioId, cancelToken: cancelToken);
     return VisualizerData(audioId: audioId, meta: meta, framesBin: framesBin);

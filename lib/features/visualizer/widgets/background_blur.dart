@@ -16,10 +16,7 @@ class BackgroundBlur extends StatelessWidget {
           BaseColor.black.withAlpha(190),
           BlendMode.darken,
         ),
-        child: BlurHash(
-          hash: blurHash,
-          imageFit: BoxFit.cover,
-        ),
+        child: BlurHash(hash: blurHash, imageFit: BoxFit.cover),
       ),
     );
   }
