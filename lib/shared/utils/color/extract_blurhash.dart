@@ -3,7 +3,11 @@ import 'dart:typed_data';
 
 import 'package:blurhash_dart/blurhash_dart.dart';
 
-Uint8List decodeBlurHashToRgba(String blurHash, {int width = 32, int height = 32}) {
+Uint8List decodeBlurHashToRgba(
+  String blurHash, {
+  int width = 32,
+  int height = 32,
+}) {
   final hash = BlurHash.decode(blurHash);
   return hash.toImage(width, height).getBytes();
 }
@@ -17,7 +21,7 @@ Color colorFromBlurHash(String blurHash) {
 
   int r = 0, g = 0, b = 0, count = 0;
 
-  for(int y = start; y < end; y++) {
+  for (int y = start; y < end; y++) {
     for (int x = start; x < end; x++) {
       final i = (y * size + x) * 4;
       r += rgba[i];

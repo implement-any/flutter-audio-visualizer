@@ -30,7 +30,13 @@ class CircleBarsPainter extends CustomPainter {
     required this.frameIndexListenable,
     required this.fadeListenable,
     required this.rotatable,
-  }) : super(repaint: Listenable.merge([frameIndexListenable, fadeListenable, rotatable]));
+  }) : super(
+         repaint: Listenable.merge([
+           frameIndexListenable,
+           fadeListenable,
+           rotatable,
+         ]),
+       );
 
   // 각 64개의 angle cos, sin 연산 캐싱 ( 1회만 )
   void _ensureDirs() {
@@ -61,7 +67,11 @@ class CircleBarsPainter extends CustomPainter {
 
     // 밝기 보정 ( Blur Hash 색상 값이 배경보다 어두우면 묻히는 경우가 있음 )
     final luminance = color.computeLuminance();
-    final brighten = luminance >= (0.25 -  0.8).abs() ? 0.0 : luminance > 0.1 ? 0.5 : 0.3;
+    final brighten = luminance >= (0.25 - 0.8).abs()
+        ? 0.0
+        : luminance > 0.1
+        ? 0.5
+        : 0.3;
 
     final barPaint = Paint()
       ..style = PaintingStyle.stroke
@@ -76,7 +86,9 @@ class CircleBarsPainter extends CustomPainter {
     canvas.drawCircle(center, radius, circlePaint);
 
     for (int i = 0; i < barCount; i++) {
-      final bar = visualizer.lerpBar(frameIndexListenable.value, i) * fadeListenable.value;
+      final bar =
+          visualizer.lerpBar(frameIndexListenable.value, i) *
+          fadeListenable.value;
 
       final base = HSLColor.fromColor(color);
       final hue = (base.hue + bar) % 360;
