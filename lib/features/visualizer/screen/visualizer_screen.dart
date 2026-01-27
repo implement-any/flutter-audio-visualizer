@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:flutter_audio_visualizer/core/shell/shell_config.dart';
+
 import 'package:flutter_audio_visualizer/shared/models/music.dart';
-import 'package:flutter_audio_visualizer/shared/widgets/fade_transition.dart';
-import 'package:flutter_audio_visualizer/shared/widgets/custom_indicator.dart';
+import 'package:flutter_audio_visualizer/shared/widgets/animation/fade_transition.dart';
+import 'package:flutter_audio_visualizer/shared/widgets/loading/custom_indicator.dart';
+
 import 'package:flutter_audio_visualizer/features/visualizer/controller/audio_controller.dart';
 import 'package:flutter_audio_visualizer/features/visualizer/provider/visualizer_provider.dart';
 import 'package:flutter_audio_visualizer/features/visualizer/ui/cover_with_visualizer.dart';
-import 'package:flutter_audio_visualizer/features/visualizer/widgets/background_blur.dart';
 import 'package:flutter_audio_visualizer/features/visualizer/widgets/music_info.dart';
 import 'package:flutter_audio_visualizer/features/visualizer/widgets/player.dart';
 
@@ -30,6 +33,7 @@ class _VisualizerScreenState extends ConsumerState<VisualizerScreen> with Single
     super.initState();
     _initAudioStream();
     _initAnimation();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _applyAppBar());
   }
 
   @override
@@ -37,6 +41,14 @@ class _VisualizerScreenState extends ConsumerState<VisualizerScreen> with Single
     _audio.dispose();
     _animation.dispose();
     super.dispose();
+  }
+
+  void _applyAppBar() {
+    ref.read(appBarOverrideProvider.notifier).state = AppBarOverride(
+      title: "Limbus Company OST",
+      centerTitle: false,
+      actions: const [],
+    );
   }
 
   void _initAnimation() {

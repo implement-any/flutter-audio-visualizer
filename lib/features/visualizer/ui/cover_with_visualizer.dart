@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_audio_visualizer/shared/widgets/fade_transition.dart';
+import 'package:flutter_audio_visualizer/shared/widgets/animation/fade_transition.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_audio_visualizer/features/visualizer/models/visualizer_model.dart';
@@ -11,7 +11,7 @@ import 'package:flutter_audio_visualizer/features/visualizer/provider/visualizer
 import 'package:flutter_audio_visualizer/features/visualizer/controller/audio_controller.dart';
 import 'package:flutter_audio_visualizer/features/visualizer/widgets/circle_bars_painter.dart';
 import 'package:flutter_audio_visualizer/shared/models/music.dart';
-import 'package:flutter_audio_visualizer/shared/widgets/cover_image.dart';
+import 'package:flutter_audio_visualizer/shared/widgets/image/cover_image.dart';
 
 class CoverWithVisualizer extends ConsumerStatefulWidget {
   final AudioController audio;
@@ -190,7 +190,7 @@ class _CoverWithVisualizerState extends ConsumerState<CoverWithVisualizer> with 
               blendMode: BlendMode.dstIn,
               child: CoverImage(
                 size: widget.coverSize,
-                blurHash: widget.music.blurHash,
+                hash: widget.music.blurHash,
                 imageUrl: widget.music.cover,
                 isCircle: true,
               ),

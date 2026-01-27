@@ -1,24 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
-class AppBarConfig {
-  final String title;
-  final bool centerTitle;
-  final List<Widget>? actions;
-  final bool showBack;
+class BackgroundConfig {
+  final String hash;
+  final int rev;
 
-  const AppBarConfig({
-    required this.title,
-    this.centerTitle = false,
+  const BackgroundConfig({
+    required this.hash,
+    required this.rev,
+  });
+
+  BackgroundConfig copyWith({String? hash, int? rev}) {
+    return BackgroundConfig(
+      hash: hash ?? this.hash,
+      rev: rev ?? this.rev,
+    );
+  }
+
+  static const empty = BackgroundConfig(hash: '', rev: 0);
+}
+
+class AppBarOverride {
+  final String? title;
+  final bool? centerTitle;
+  final List<Widget>? actions;
+
+  const AppBarOverride({
+    this.title,
+    this.centerTitle,
     this.actions,
-    this.showBack = false,
   });
 }
 
-final appBarConfigProvider = StateProvider<AppBarConfig?>((ref) {
-  return null;
+final backgroundConfigProvider = StateProvider<BackgroundConfig>((ref) {
+  return BackgroundConfig.empty;
 });
 
-final backgroundConfigProvider = StateProvider<String>((ref) {
-  return "";
-});
+final appBarOverrideProvider = StateProvider<AppBarOverride?>((ref) => null);
