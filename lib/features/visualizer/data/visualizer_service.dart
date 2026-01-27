@@ -4,8 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_audio_visualizer/core/network/dio_instance.dart';
-import 'package:flutter_audio_visualizer/core/network/dio_provider.dart';
-
 import 'package:flutter_audio_visualizer/features/visualizer/models/visualizer_model.dart';
 
 final visualizerProvider = Provider<VisualizerClient>((ref) {

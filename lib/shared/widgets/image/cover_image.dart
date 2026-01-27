@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
-import 'package:flutter_audio_visualizer/shared/common/url.dart';
+import 'package:flutter_audio_visualizer/shared/common/environment.dart';
+import 'package:flutter_audio_visualizer/shared/widgets/image/hero_blurhash.dart';
 
 class CoverImage extends StatelessWidget {
   final double size;
 
-  final String blurHash;
+  final String hash;
   final String imageUrl;
 
   final bool isCircle;
@@ -13,7 +13,7 @@ class CoverImage extends StatelessWidget {
   const CoverImage({
     super.key,
     required this.size,
-    required this.blurHash,
+    required this.hash,
     required this.imageUrl,
     this.isCircle = false,
   });
@@ -27,10 +27,10 @@ class CoverImage extends StatelessWidget {
       child: SizedBox(
         width: size,
         height: size,
-        child: BlurHash(
-          hash: blurHash,
-          image: "${CommonUrl.server}$imageUrl",
-          imageFit: BoxFit.cover,
+        child: HeroBlurHash(
+          hash: hash,
+          image: "${Environment.baseUrl}$imageUrl",
+          boxFit: BoxFit.cover,
         ),
       ),
     );

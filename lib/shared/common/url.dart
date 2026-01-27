@@ -1,3 +1,3 @@
 class CommonUrl {
-  static final server = "http://10.0.2.2:8080";
+  static final server = "https://port-0-ffmpeg-spectrum-mkcr19bk78d45000.sel3.cloudtype.app";
 }
